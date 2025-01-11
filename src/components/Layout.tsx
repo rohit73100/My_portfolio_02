@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Layout() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [showFooterDetails, setShowFooterDetails] = React.useState(false);
   const location = useLocation();
 
   const navItems = [
@@ -90,62 +91,87 @@ export default function Layout() {
       </main>
 
       <footer className="bg-gray-900 text-white mt-20">
-        <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="space-y-2">
-              <h3 className="text-lg font-semibold mb-2 text-blue-400">Contact</h3>
-              <div className="space-y-2">
-                <a
-                  href="tel:+919264917285"
-                  className="flex items-center hover:text-blue-400 transition-colors group"
-                >
-                  <Phone size={16} className="mr-2 group-hover:scale-110 transition-transform" />
-                  +91 92649 17285
-                </a>
-                <a
-                  href="mailto:rohit73100@gmail.com"
-                  className="flex items-center hover:text-blue-400 transition-colors group"
-                >
-                  <Mail size={16} className="mr-2 group-hover:scale-110 transition-transform" />
-                  rohit73100@gmail.com
-                </a>
-                <div className="flex items-center group">
-                  <MapPin size={16} className="mr-2 group-hover:scale-110 transition-transform" />
-                  Lucknow, UP, India
+        <div 
+          className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8"
+          onMouseEnter={() => setShowFooterDetails(true)}
+          onMouseLeave={() => setShowFooterDetails(false)}
+        >
+          <motion.div
+            initial={false}
+            animate={{ height: showFooterDetails ? 'auto' : '80px' }}
+            className="overflow-hidden"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold mb-4 text-blue-400">Contact</h3>
+                <div className="space-y-4">
+                  <a
+                    href="tel:+919264917285"
+                    className="flex items-center hover:text-blue-400 transition-colors group"
+                  >
+                    <Phone size={16} className="mr-2 group-hover:scale-110 transition-transform" />
+                    +91 92649 17285
+                  </a>
+                  <a
+                    href="mailto:rohit73100@gmail.com"
+                    className="flex items-center hover:text-blue-400 transition-colors group"
+                  >
+                    <Mail size={16} className="mr-2 group-hover:scale-110 transition-transform" />
+                    rohit73100@gmail.com
+                  </a>
+                  <div className="flex items-center group">
+                    <MapPin size={16} className="mr-2 group-hover:scale-110 transition-transform" />
+                    Lucknow, UP, India
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold mb-4 text-blue-400">Quick Links</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className="hover:text-blue-400 transition-colors transform hover:translate-x-1 inline-block"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold mb-4 text-blue-400">Connect</h3>
+                <div className="flex space-x-4">
+                  <a
+                    href="https://github.com/rohit73100/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-gray-800 rounded-full hover:bg-blue-600 transition-colors group"
+                  >
+                    <Github size={24} className="group-hover:scale-110 transition-transform" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/rohit-tiwari-a4912126a/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-gray-800 rounded-full hover:bg-blue-600 transition-colors group"
+                  >
+                    <Linkedin size={24} className="group-hover:scale-110 transition-transform" />
+                  </a>
                 </div>
               </div>
             </div>
+          </motion.div>
 
-            <div className="space-y-2">
-              <h3 className="text-lg font-semibold mb-2 text-blue-400">Quick Links</h3>
-              <div className="grid grid-cols-2 gap-2">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className="hover:text-blue-400 transition-colors transform hover:translate-x-1 inline-block"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="text-lg font-semibold mb-2 text-blue-400">Connect</h3>
-              <div className="flex space-x-4">
-                <a
-                  href="https://github.com/rohit73100/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 bg-gray-800 rounded-full hover:bg-blue-600 transition-colors group"
-                >
-                  <Github size={20} className="group-hover:scale-110 transition-transform" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/rohit-tiwari-a4912126a/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 bg-gray-800 rounded-full hover:bg-blue-600 transition-colors group"
-                >
-                  <Linkedin size={20} className="group-hover:scale-110 transition-transform" />
+          <div className="mt-12 pt-8 border-t border-gray-800">
+            <p className="text-center text-gray-400">
+              © {new Date().getFullYear()} Rohit Tiwari. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
